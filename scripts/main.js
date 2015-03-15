@@ -42,16 +42,27 @@ jQuery(function() {
 	
 	var ttc = tickTimingConfig = {
 		normalTickDelay: 1000,
-		maximumAllowedTotalSkew: 400,
-		probabilityOfAccuracyEachTick: 0.5,
-		maximumPossibleSkewPerTick: 400,
+		probabilityOfAccuracyEachTick: 0.75,
+		possibleSkewPerInaccurateTick: {
+			minimum: 50,
+			maximum: 250,
+		},
+		maximumAllowedTotalSkew: 999,
 	};
-	if (ttc.maximumPossibleSkewPerTick > ttc.maximumAllowedTotalSkew) {
-		console.error("maximumPossibleSkewPerTick may not be greater than maximumAllowedTotalSkew");
-	}
+	sanityCheckTickTimingConfig(tickTimingConfig);
 	
 	updateButtonDisabledStatuses();
 	
+	
+	function sanityCheckTickTimingConfig(ttc) {
+		if (ttc.normalTickDelay <= 0 ||
+		    ttc.probabilityOfAccuracyEachTick < 0 || ttc.probabilityOfAccuracyEachTick > 1 ||
+		    ttc.possibleSkewPerInaccurateTick.minimum < 0 ||
+		    ttc.possibleSkewPerInaccurateTick.maximum < ttc.possibleSkewPerInaccurateTick.minimum ||
+		    ttc.possibleSkewPerInaccurateTick.maximum > ttc.maximumAllowedTotalSkew) {
+			throw "tickTimingConfig failed sanity check";
+		}
+	}
 	
 	function updateButtonDisabledStatuses() {
 		$startTickingButton.prop("disabled", isCurrentlyTicking());
@@ -77,14 +88,23 @@ jQuery(function() {
 	}
 	
 	function generateSkewForInaccurateNextTick() {
-		var potentialSkewForNextTick = _.random(-ttc.maximumPossibleSkewPerTick, ttc.maximumPossibleSkewPerTick);
-		var potentialTotalSkew = millisecondsOfTotalSkew + potentialSkewForNextTick;
+		var potentialSkew = generateSkewForInaccurateNextTickIgnoringTotalSkew();
+		
+		var potentialTotalSkew = millisecondsOfTotalSkew + potentialSkew;
 		if (totalSkewIsWithinAllowedRange(potentialTotalSkew)) {
-			return potentialSkewForNextTick;
+			return potentialSkew;
 		} else {
 			// reverse the direction of skew to prevent the total skew from being off by too much
-			return -potentialSkewForNextTick;
+			return -potentialSkew;
 		}
+	}
+	
+	function generateSkewForInaccurateNextTickIgnoringTotalSkew() {
+		var minimum = ttc.possibleSkewPerInaccurateTick.minimum;
+		var maximum = ttc.possibleSkewPerInaccurateTick.maximum;
+		var absoluteSkew = _.random(minimum, maximum);
+		var skewShouldBePositive = trueWithProbability(0.5);
+		return absoluteSkew * (skewShouldBePositive ? 1 : -1);
 	}
 	
 	function totalSkewIsWithinAllowedRange(totalSkew) {
