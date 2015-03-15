@@ -1,17 +1,18 @@
 // start loading sounds without waiting for any event
 var sounds = (function(){
-	function makeNamedSounds(names, nameToUrlTransformer) {
+	function makeNamedSounds(names, nameToUrlsTransformer) {
 		var sounds = {};
 		names.forEach(function(name) {
-			var url = nameToUrlTransformer(name);
-			sounds[name] = new Audio(url);
+			sounds[name] = new Howl({
+				urls: nameToUrlsTransformer(name),
+			});
 		});
 		return sounds;
 	}
 	
 	var soundNames = ["tick1", "tock1", "tick2", "tock2"];
 	return makeNamedSounds(soundNames, function(name) {
-		return "sounds/" + name + ".mp3"
+		return ["sounds/wav/" + name + ".wav", "sounds/mp3/" + name + ".mp3"];
 	});
 })();
 
@@ -22,7 +23,9 @@ function playTockSound() {
 	playSound(_.sample(["tock1", "tock2"]));
 }
 function playSound(name) {
-	sounds[name].play();
+	var sound = sounds[name];
+	sound.stop();
+	sound.play();
 }
 
 function trueWithProbability(probability) {
