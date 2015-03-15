@@ -6,6 +6,8 @@
 
 – <i>Feet of Clay</i> by Terry Pratchett, page 91
 
+**[Visit the page](https://roryokane.github.io/vetinari-clock)** and click “Start Ticking”. Does your thinking turn to porridge?
+
 ## How it ticks
 
 The clock ticks roughly every second. Every sound alternates between “tick” and “tock”, like a normal clock.
