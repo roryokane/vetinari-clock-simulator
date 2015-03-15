@@ -1,6 +1,5 @@
 // start loading sounds without waiting for any event
 var sounds = (function(){
-	var soundNames = ["tick1", "tock1", "tick2", "tock2"];
 	function makeNamedSounds(names, nameToUrlTransformer) {
 		var sounds = {};
 		names.forEach(function(name) {
@@ -9,6 +8,8 @@ var sounds = (function(){
 		});
 		return sounds;
 	}
+	
+	var soundNames = ["tick1", "tock1", "tick2", "tock2"];
 	return makeNamedSounds(soundNames, function(name) {
 		return "sounds/" + name + ".mp3"
 	});
