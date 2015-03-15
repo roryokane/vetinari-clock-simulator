@@ -37,6 +37,10 @@ header {
 	margin-bottom: 2em;
 }
 
+.slow-warning {
+	display: none;
+}
+
 
 @media (max-width: 600px) {
 	body {
@@ -44,6 +48,10 @@ header {
 	}
 	input[type="button"] {
 		font-size: 1.5em;
+	}
+	.slow-warning {
+		/* show the warning when the window is small, which might indicate a slow mobile device */
+		display: block;
 	}
 }
 @media (max-width: 420px) {
