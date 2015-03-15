@@ -16,6 +16,8 @@ Every tick, the program randomly decides to either tick perfectly on time, or sk
 
 The total skew over time is restricted. If the clock starts getting too far ahead or behind the actual time, the clock starts skewing in the opposite direction, so that it stays roughly accurate.
 
+On slow computers, sometimes the browser delays the next tick unexpectedly, such as by two seconds instead of one second. Thankfully, this lag just adds to the effect.
+
 ## Related works
 
 * [schematics](https://github.com/akafugu/vetinari_clock) for building a physical clock like this and a [video](http://www.akafugu.jp/posts/products/vetinariclock/) of one, by Akafugu Corporation
