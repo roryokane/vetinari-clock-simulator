@@ -6,7 +6,7 @@
 
 – <i>Feet of Clay</i> by Terry Pratchett, page 91
 
-# How it ticks
+## How it ticks
 
 The clock ticks roughly every second. Every sound alternates between “tick” and “tock”, like a normal clock.
 
@@ -14,7 +14,7 @@ Every tick, the program randomly decides to either tick perfectly on time, or sk
 
 The total skew over time is restricted. If the clock starts getting too far ahead or behind the actual time, the clock starts skewing in the opposite direction, so that it stays roughly accurate.
 
-# Related works
+## Related works
 
 * [schematics](https://github.com/akafugu/vetinari_clock) for building a physical clock like this and a [video](http://www.akafugu.jp/posts/products/vetinariclock/) of one, by Akafugu Corporation
 * a [video](https://www.youtube.com/watch?v=KHKOhO_-hZY) of a physical clock built like this and [discussion of it](http://www.reddit.com/r/discworld/comments/l1q0p/a_vetinaristyled_clock/), by rdmiller3
