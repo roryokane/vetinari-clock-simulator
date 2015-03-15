@@ -17,4 +17,4 @@ The total skew over time is restricted. If the clock starts getting too far ahea
 ## Related works
 
 * [schematics](https://github.com/akafugu/vetinari_clock) for building a physical clock like this and a [video](http://www.akafugu.jp/posts/products/vetinariclock/) of one, by Akafugu Corporation
-* a [video](https://www.youtube.com/watch?v=KHKOhO_-hZY) of a physical clock built like this and [discussion of it](http://www.reddit.com/r/discworld/comments/l1q0p/a_vetinaristyled_clock/), by rdmiller3
+* a [video](https://www.youtube.com/watch?v=KHKOhO_-hZY) of a physical clock built like this and [discussion](http://www.reddit.com/r/discworld/comments/l1q0p/a_vetinaristyled_clock/) of it, by rdmiller3
