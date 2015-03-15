@@ -48,7 +48,7 @@ jQuery(function() {
 		normalTickDelay: 1000,
 		probabilityOfAccuracyEachTick: 0.75,
 		possibleSkewPerInaccurateTick: {
-			minimum: 50,
+			minimum: 100,
 			maximum: 250,
 		},
 		maximumAllowedTotalSkew: 999,
