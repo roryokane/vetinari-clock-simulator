@@ -14,6 +14,20 @@ var sounds = (function(){
 	});
 })();
 
+function playTickSound() {
+	playSound(_.sample(["tick1", "tick2"]));
+}
+function playTockSound() {
+	playSound(_.sample(["tock1", "tock2"]));
+}
+function playSound(name) {
+	sounds[name].play();
+}
+
+function trueWithProbability(probability) {
+	return (Math.random() < probability);
+}
+
 jQuery(function() {
 	$startTickingButton = $('#start-ticking');
 	$stopTickingButton = $('#stop-ticking');
@@ -54,15 +68,15 @@ jQuery(function() {
 	}
 	
 	function generateSkewForNextTick() {
-		var nextTickShouldBeAccurate = (Math.random() < ttc.probabilityOfAccuracyEachTick);
+		var nextTickShouldBeAccurate = trueWithProbability(ttc.probabilityOfAccuracyEachTick);
 		if (nextTickShouldBeAccurate) {
 			return 0;
 		} else {
-			return generateSkewForNextTickAssumingNonaccuracy();
+			return generateSkewForInaccurateNextTick();
 		}
 	}
 	
-	function generateSkewForNextTickAssumingNonaccuracy() {
+	function generateSkewForInaccurateNextTick() {
 		var potentialSkewForNextTick = _.random(-ttc.maximumPossibleSkewPerTick, ttc.maximumPossibleSkewPerTick);
 		var potentialTotalSkew = millisecondsOfTotalSkew + potentialSkewForNextTick;
 		if (totalSkewIsWithinAllowedRange(potentialTotalSkew)) {
@@ -101,15 +115,5 @@ jQuery(function() {
 			playTickSound();
 		}
 		playTockNext = !playTockNext;
-	}
-	
-	function playTickSound() {
-		playSound(_.sample(["tick1", "tick2"]));
-	}
-	function playTockSound() {
-		playSound(_.sample(["tock1", "tock2"]));
-	}
-	function playSound(name) {
-		sounds[name].play();
 	}
 });
