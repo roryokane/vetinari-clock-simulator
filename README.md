@@ -10,7 +10,7 @@
 
 ## How it ticks
 
-The clock ticks roughly every second. Every sound alternates between “tick” and “tock”, like a normal clock.
+The clock ticks roughly every second. The sound alternates between “tick” and “tock” most of the time, but sometimes repeats the same type of sound to confuse you.
 
 Every tick, the program randomly decides to either tick perfectly on time, or skew its tick slightly off. When it chooses to skew its tick, it randomly chooses how far to skew, and in which direction.
 

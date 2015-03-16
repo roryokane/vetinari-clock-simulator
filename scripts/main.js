@@ -47,6 +47,7 @@ jQuery(function() {
 	var ttc = tickTimingConfig = {
 		normalTickDelay: 1000,
 		probabilityOfAccuracyEachTick: 0.75,
+		probabilityOfTogglingTickTock: 0.9,
 		possibleSkewPerInaccurateTick: {
 			minimum: 100,
 			maximum: 250,
@@ -138,6 +139,8 @@ jQuery(function() {
 		} else {
 			playTickSound();
 		}
-		playTockNext = !playTockNext;
+		if (trueWithProbability(ttc.probabilityOfTogglingTickTock)) {
+			playTockNext = !playTockNext;
+		}
 	}
 });
