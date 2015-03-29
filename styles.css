@@ -31,10 +31,9 @@ header {
 	font-style: italic;
 }
 
-.book-quote {
+.book-quotes {
 	font-size: 0.9em;
 	margin-top: 2em;
-	margin-bottom: 2em;
 }
 
 .slow-warning {
