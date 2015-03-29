@@ -31,13 +31,19 @@ header {
 	font-style: italic;
 }
 
-.book-quotes {
-	font-size: 0.9em;
-	margin-top: 2em;
-}
-
 .slow-warning {
 	display: none;
+}
+
+.book-quotes {
+	font-size: 0.9em;
+}
+.book-quotes blockquote {
+	margin-top: 1.5em;
+}
+
+cite {
+	font-style: normal;
 }
 
 
