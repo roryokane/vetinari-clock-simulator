@@ -54,8 +54,8 @@ jQuery(function() {
 	$startTickingButton = $('#start-ticking');
 	$stopTickingButton = $('#stop-ticking');
 	
-	$startTickingButton.click(startTicking);
-	$stopTickingButton.click(stopTicking);
+	$startTickingButton.on('click', startTicking);
+	$stopTickingButton.on('click', stopTicking);
 	
 	var nextTickTimeout = null;
 	// initialized in startTicking:
