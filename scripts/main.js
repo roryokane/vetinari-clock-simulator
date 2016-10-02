@@ -1,28 +1,45 @@
-// start loading sounds without waiting for any event
-var sounds = (function(){
-	function makeNamedSounds(names, nameToUrlsTransformer) {
-		var sounds = {};
-		names.forEach(function(name) {
-			sounds[name] = new Howl({
-				urls: nameToUrlsTransformer(name),
-			});
-		});
-		return sounds;
-	}
-	
-	var soundNames = ["tick1", "tock1", "tick2", "tock2"];
-	return makeNamedSounds(soundNames, function(name) {
-		return ["sounds/wav/" + name + ".wav", "sounds/mp3/" + name + ".mp3"];
+// global-scope functions used:
+var _, jQuery, $, Howl;
+
+
+var soundNamesByType = {
+	ticks: ["tick1", "tick2"],
+	tocks: ["tock1", "tock2"],
+};
+var allSoundNames = (soundNamesByType.ticks).concat(soundNamesByType.tocks);
+
+// objectByMappingKeys: converts an array of string keys `['a', 'b']`
+// to a mapping object `{a: mapCallback('a'), b: mapCallback('b')}`
+function objectByMappingKeys(keysArray, mapCallback) {
+	var object = {};
+	keysArray.forEach(function(key) {
+		object[key] = mapCallback(key);
 	});
-})();
+	return object;
+}
+
+function initializeSounds(soundNames) {
+	return objectByMappingKeys(soundNames, function(name) {
+		var urls = urlsForSoundName(name);
+		return new Howl({urls: urls});
+	});
+	
+	function urlsForSoundName(name) {
+		return ["sounds/wav/"+name+".wav", "sounds/mp3/"+name+".mp3"];
+	}
+}
+
+// start loading sounds without waiting for any event
+var sounds = initializeSounds(allSoundNames);
+
 
 function playTickSound() {
-	playSound(_.sample(["tick1", "tick2"]));
+	playNamedSound(_.sample(soundNamesByType.ticks));
 }
 function playTockSound() {
-	playSound(_.sample(["tock1", "tock2"]));
+	playNamedSound(_.sample(soundNamesByType.tocks));
 }
-function playSound(name) {
+function playNamedSound(name) {
 	var sound = sounds[name];
 	sound.stop();
 	sound.play();
@@ -31,6 +48,7 @@ function playSound(name) {
 function trueWithProbability(probability) {
 	return (Math.random() < probability);
 }
+
 
 jQuery(function() {
 	$startTickingButton = $('#start-ticking');
