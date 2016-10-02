@@ -110,6 +110,7 @@ jQuery(function() {
 		nextTickTimeout = setTimeout(playTickAndScheduleNext, millisecondsToNextTick);
 	}
 	
+	
 	function generateSkewForNextTick() {
 		var nextTickShouldBeAccurate = trueWithProbability(ttc.probabilityOfAccuracyEachTick);
 		if (nextTickShouldBeAccurate) {
@@ -161,6 +162,7 @@ jQuery(function() {
 	function totalSkewIsWithinAllowedRange(totalSkew) {
 		return Math.abs(totalSkew) < ttc.maximumAllowedTotalSkew;
 	}
+	
 	
 	function startTicking() {
 		playTockNext = false;
