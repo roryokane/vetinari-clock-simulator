@@ -159,7 +159,7 @@ jQuery(function() {
 	}
 	
 	function totalSkewIsWithinAllowedRange(totalSkew) {
-		return (-ttc.maximumAllowedTotalSkew < totalSkew && totalSkew < ttc.maximumAllowedTotalSkew);
+		return Math.abs(totalSkew) < ttc.maximumAllowedTotalSkew;
 	}
 	
 	function startTicking() {
