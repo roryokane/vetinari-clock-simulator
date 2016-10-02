@@ -3,8 +3,8 @@ var _, jQuery, $, Howl;
 
 
 var soundNamesByType = {
-	ticks: ["tick1", "tick2"],
-	tocks: ["tock1", "tock2"],
+	ticks: ['tick1', 'tick2'],
+	tocks: ['tock1', 'tock2'],
 };
 var allSoundNames = (soundNamesByType.ticks).concat(soundNamesByType.tocks);
 
@@ -25,7 +25,7 @@ function initializeSounds(soundNames) {
 	});
 	
 	function urlsForSoundName(name) {
-		return ["sounds/wav/"+name+".wav", "sounds/mp3/"+name+".mp3"];
+		return ['sounds/wav/'+name+'.wav', 'sounds/mp3/'+name+'.mp3'];
 	}
 }
 
@@ -97,8 +97,8 @@ jQuery(function() {
 	}
 	
 	function updateButtonDisabledStatuses() {
-		$startTickingButton.prop("disabled", isCurrentlyTicking());
-		$stopTickingButton.prop("disabled", !isCurrentlyTicking());
+		$startTickingButton.prop('disabled', isCurrentlyTicking());
+		$stopTickingButton.prop('disabled', !isCurrentlyTicking());
 	}
 	
 	function playTickAndScheduleNext() {
