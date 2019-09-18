@@ -62,7 +62,7 @@ jQuery(function() {
 	var playTockNext;
 	var millisecondsOfTotalSkew;
 	
-	var ttc = tickTimingConfig = Object.freeze({
+	var tickTimingConfig = Object.freeze({
 		normalTickDelay: 1000,
 		probabilityOfAccuracyEachTick: 0.75,
 		probabilityOfTogglingTickTock: 0.9,
@@ -75,6 +75,7 @@ jQuery(function() {
 		maximumAllowedTotalSkew: 1499,
 	});
 	sanityCheckTickTimingConfig(tickTimingConfig);
+	var ttc = tickTimingConfig;
 	
 	updateButtonDisabledStatuses();
 	
