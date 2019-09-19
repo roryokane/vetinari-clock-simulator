@@ -145,19 +145,19 @@ jQuery(function() {
 		}
 	}
 	
+	function generateSkewForSkippingNextTickIgnoringTotalSkew() {
+		var doubleTickDelay = ttc.normalTickDelay * 2;
+		var minimumSkew = doubleTickDelay - ttc.possibleSkewPerInaccurateTick.maximum;
+		var maximumSkew = doubleTickDelay + ttc.possibleSkewPerInaccurateTick.maximum;
+		return _.random(minimumSkew, maximumSkew);
+	}
+	
 	function generateSkewForInaccurateNextTickIgnoringTotalSkew() {
 		var minimumSkew = ttc.possibleSkewPerInaccurateTick.minimum;
 		var maximumSkew = ttc.possibleSkewPerInaccurateTick.maximum;
 		var absoluteSkew = _.random(minimumSkew, maximumSkew);
 		var skewShouldBePositive = trueWithProbability(ttc.probabilityOfSkewingPositive);
 		return absoluteSkew * (skewShouldBePositive ? 1 : -1);
-	}
-	
-	function generateSkewForSkippingNextTickIgnoringTotalSkew() {
-		var doubleTickDelay = ttc.normalTickDelay * 2;
-		var minimumSkew = doubleTickDelay - ttc.possibleSkewPerInaccurateTick.maximum;
-		var maximumSkew = doubleTickDelay + ttc.possibleSkewPerInaccurateTick.maximum;
-		return _.random(minimumSkew, maximumSkew);
 	}
 	
 	function totalSkewIsWithinAllowedRange(totalSkew) {
