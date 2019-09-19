@@ -120,42 +120,42 @@ jQuery(function() {
 	}
 	
 	function generateSkewForInaccurateNextTick() {
-		var potentialSkippingSkew = generateSkewForSkippingNextTickIgnoringTotalSkew();
+		function generateSkewForSkippingNextTick() {
+			var doubleTickDelay = ttc.normalTickDelay * 2;
+			var minimumSkew = doubleTickDelay - ttc.possibleSkewPerInaccurateTick.maximum;
+			var maximumSkew = doubleTickDelay + ttc.possibleSkewPerInaccurateTick.maximum;
+			return _.random(minimumSkew, maximumSkew);
+		}
 		
-		var potentialTotalSkew = millisecondsOfTotalSkew + potentialSkippingSkew;
-		var isSkippingATickPossible = totalSkewIsWithinAllowedRange(potentialTotalSkew);
+		var skippingSkew = generateSkewForSkippingNextTick();
+		var totalSkewIfSkipping = millisecondsOfTotalSkew + skippingSkew;
+		
+		var isSkippingATickPossible = totalSkewIsWithinAllowedRange(totalSkewIfSkipping);
 		if (isSkippingATickPossible && trueWithProbability(ttc.probabilityOfSkippingATickWhenPossible)) {
-			return potentialSkippingSkew;
+			return skippingSkew;
 		} else {
 			return generateSkewForInaccurateNonSkippingNextTick();
 		}
 	}
-		
+	
 	function generateSkewForInaccurateNonSkippingNextTick() {
-		var potentialSkew = generateSkewForInaccurateNextTickIgnoringTotalSkew();
+		function generatePotentialSkewForInaccurateNonSkippingNextTick() {
+			var minimumSkew = ttc.possibleSkewPerInaccurateTick.minimum;
+			var maximumSkew = ttc.possibleSkewPerInaccurateTick.maximum;
+			var absoluteSkew = _.random(minimumSkew, maximumSkew);
+			var skewShouldBePositive = trueWithProbability(ttc.probabilityOfSkewingPositive);
+			return absoluteSkew * (skewShouldBePositive ? 1 : -1);
+		}
 		
+		var potentialSkew = generatePotentialSkewForInaccurateNonSkippingNextTick();
 		var potentialTotalSkew = millisecondsOfTotalSkew + potentialSkew;
+		
 		if (totalSkewIsWithinAllowedRange(potentialTotalSkew)) {
 			return potentialSkew;
 		} else {
 			// reverse the direction of skew to prevent the total skew from being off by too much
 			return -potentialSkew;
 		}
-	}
-	
-	function generateSkewForSkippingNextTickIgnoringTotalSkew() {
-		var doubleTickDelay = ttc.normalTickDelay * 2;
-		var minimumSkew = doubleTickDelay - ttc.possibleSkewPerInaccurateTick.maximum;
-		var maximumSkew = doubleTickDelay + ttc.possibleSkewPerInaccurateTick.maximum;
-		return _.random(minimumSkew, maximumSkew);
-	}
-	
-	function generateSkewForInaccurateNextTickIgnoringTotalSkew() {
-		var minimumSkew = ttc.possibleSkewPerInaccurateTick.minimum;
-		var maximumSkew = ttc.possibleSkewPerInaccurateTick.maximum;
-		var absoluteSkew = _.random(minimumSkew, maximumSkew);
-		var skewShouldBePositive = trueWithProbability(ttc.probabilityOfSkewingPositive);
-		return absoluteSkew * (skewShouldBePositive ? 1 : -1);
 	}
 	
 	function totalSkewIsWithinAllowedRange(totalSkew) {
