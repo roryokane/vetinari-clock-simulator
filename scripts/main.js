@@ -1,5 +1,5 @@
-// global-scope functions used:
-var _, jQuery, $, Howl;
+// global-scope functions defined by libraries:
+var _, jQuery, $, Howl, Howler;
 
 
 var soundNamesByType = {
@@ -20,8 +20,8 @@ function objectByMappingKeys(keysArray, mapCallback) {
 
 function initializeSounds(soundNames) {
 	return objectByMappingKeys(soundNames, function(name) {
-		var urls = urlsForSoundName(name);
-		return new Howl({urls: urls});
+		var soundUrls = urlsForSoundName(name);
+		return new Howl({src: soundUrls});
 	});
 	
 	function urlsForSoundName(name) {
@@ -40,9 +40,7 @@ function playTockSound() {
 	playNamedSound(_.sample(soundNamesByType.tocks));
 }
 function playNamedSound(name) {
-	var sound = sounds[name];
-	sound.stop();
-	sound.play();
+	sounds[name].play();
 }
 
 function trueWithProbability(probability) {
